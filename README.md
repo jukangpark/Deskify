@@ -1,5 +1,12 @@
 # Deskify
 
+
+![Next.js](https://img.shields.io/badge/Made%20with-Next.js-000000?logo=next.js&logoColor=white) <br/>
+![Vercel](https://img.shields.io/badge/Made%20with-Vercel-000000?logo=vercel&logoColor=white) <br/>
+[![Made with Supabase](https://supabase.com/badge-made-with-supabase-dark.svg)](https://supabase.com) <br/>
+
+
+
 Deskify is a social networking platform where people showcase and share their personalized desk setups with others. Whether you’re a developer, designer, or anyone passionate about optimizing their workspace, Deskify is the perfect place to find inspiration, exchange ideas, and show off your unique desk configuration.
 
 ### Features
