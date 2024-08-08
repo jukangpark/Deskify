@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // headers
+  // strict mode 해제
+  reactStrictMode: false,
 
+  // headers
   async headers() {
     return [
       {
