@@ -1,6 +1,18 @@
-export const navigationArray = [
-  { label: "Home", link: "/" },
-  { label: "Explore", link: "/explore" },
-  { label: "Create", link: "/create" },
-  { label: "Profile", link: "/profile" },
+import { GoHomeFill } from "react-icons/go";
+import { MdExplore } from "react-icons/md";
+import { IoIosCreate } from "react-icons/io";
+import NavigationProfile from "@/app/components/NavigationProfile";
+import { IconType } from "react-icons"; // Import IconType
+
+interface NavigationItem {
+  link: string;
+  label: string;
+  icon: IconType; // Ensure this matches the type of your icons
+}
+
+export const navigationArray: NavigationItem[] = [
+  { icon: GoHomeFill, label: "Home", link: "/" },
+  { icon: MdExplore, label: "Explore", link: "/explore" },
+  { icon: IoIosCreate, label: "Create", link: "/create" },
+  { icon: NavigationProfile, label: "Profile", link: "/profile" },
 ];
