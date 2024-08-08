@@ -4,11 +4,11 @@ import Feed from "../components/layout/Feed";
 import getSession from "@/utils/supabase/auth/getSession";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Session as SupabaseSession } from "@supabase/auth-js";
 
 interface User {
   avatar_url: string;
   name: string;
-  email: string;
 }
 
 const ProfilePage = () => {
@@ -18,14 +18,19 @@ const ProfilePage = () => {
     (async () => {
       const { session } = await getSession();
 
-      setUser(session.user.user_metadata);
-
-      // console.log("user_metadata", session.user.user_metadata);
+      if (session) {
+        setUser({
+          avatar_url: session.user.user_metadata.avatar_url,
+          name: session.user.user_metadata.name,
+        });
+      } else {
+        console.error("No session found");
+      }
     })();
   }, []);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   const items = Array.from({ length: 9 }); // 40개의 아이템을 생성
