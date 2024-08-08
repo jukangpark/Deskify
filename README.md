@@ -1,4 +1,7 @@
 # Deskify
+
+Check out our [Instagram](https://www.instagram.com/deskify_official/)
+
 ![Deskify](https://github.com/user-attachments/assets/b6f702b3-c119-4e88-b4a0-32ebe80d1d6c)
 
 ![image](https://github.com/user-attachments/assets/cfbaab46-bd8c-4e9b-b07d-57909a699df2)
