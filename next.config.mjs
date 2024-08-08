@@ -2,6 +2,9 @@
 const nextConfig = {
   // strict mode 해제
   reactStrictMode: false,
+  images: {
+    domains: ["k.kakaocdn.net"],
+  },
 
   // headers
   async headers() {
