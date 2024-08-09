@@ -8,7 +8,7 @@ import Footer from "./Footer";
 import logOut from "@/utils/supabase/auth/logOut";
 import getSession from "@/utils/supabase/auth/getSession";
 import { useEffect, useState } from "react";
-import User from "@/app/types/User";
+import IUser from "@/app/types/IUser";
 
 // 공통된 스타일을 정의한 함수
 const getNavItemClasses = (isActive: boolean) =>
@@ -19,7 +19,7 @@ const getNavItemClasses = (isActive: boolean) =>
 const Navigation = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const currentPath = usePathname();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
     (async () => {
