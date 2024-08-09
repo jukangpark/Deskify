@@ -4,10 +4,10 @@ import Feed from "../components/layout/Feed";
 import getSession from "@/utils/supabase/auth/getSession";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import User from "../types/User";
+import IUser from "../types/IUser";
 
 const ProfilePage = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
     (async () => {

@@ -1,6 +1,6 @@
-interface User {
+interface IUser {
   avatar_url: string;
   name: string;
 }
 
-export default User;
+export default IUser;
