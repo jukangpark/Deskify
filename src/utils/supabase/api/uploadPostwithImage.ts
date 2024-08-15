@@ -30,7 +30,6 @@ const uploadPostWithImage = async (
       .upload(safeFileName, file);
 
     if (uploadError) {
-      console.log("uploadData", uploadData);
       console.error("Error uploading file:", uploadError.message);
       return null;
     }

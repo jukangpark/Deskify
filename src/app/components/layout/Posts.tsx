@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import Post from "../Post";
 import getPosts from "@/utils/supabase/api/getPosts";

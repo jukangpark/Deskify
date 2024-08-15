@@ -1,54 +1,38 @@
-"use client";
-
 import Feed from "../components/layout/Feed";
-import getSession from "@/utils/supabase/auth/getSession";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import IUser from "../types/IUser";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
+import Navigation from "../components/layout/Navigation";
 
-const ProfilePage = () => {
-  const [user, setUser] = useState<IUser | null>(null);
+async function ProfilePage() {
+  const items = Array.from({ length: 9 }); // 40개의 아이템을 생성
 
-  useEffect(() => {
-    (async () => {
-      const { session } = await getSession();
+  const supabase = await createClient();
 
-      if (session) {
-        const {
-          user: { user_metadata },
-        } = session;
-
-        setUser({
-          avatar_url: user_metadata.avatar_url,
-          name: user_metadata.name,
-        });
-      } else {
-        console.error("No session found");
-      }
-    })();
-  }, []);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
-    return null;
+    redirect("/login");
   }
-
-  const items = Array.from({ length: 9 }); // 40개의 아이템을 생성
 
   return (
     <div>
+      <Navigation />
       <Feed>
         <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
           <div>
             <Image
               className="rounded-full"
-              src={user.avatar_url}
+              src={user?.user_metadata.avatar_url}
               alt="avatar"
               width={150}
               height={150}
             />
           </div>
           <div className="ml-4">
-            <h1 className="text-[20px]">{user.name}</h1>
+            <h1 className="text-[20px]">{"user.name"}</h1>
           </div>
         </div>
 
@@ -63,6 +47,6 @@ const ProfilePage = () => {
       </Feed>
     </div>
   );
-};
+}
 
 export default ProfilePage;

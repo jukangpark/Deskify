@@ -1,7 +1,6 @@
 import { GoHomeFill } from "react-icons/go";
 import { MdExplore } from "react-icons/md";
 import { IoIosCreate } from "react-icons/io";
-import NavigationProfile from "@/app/components/NavigationProfile";
 import { IconType } from "react-icons"; // Import IconType
 
 interface NavigationItem {
@@ -14,5 +13,4 @@ export const navigationArray: NavigationItem[] = [
   { icon: GoHomeFill, label: "Home", link: "/" },
   { icon: MdExplore, label: "Explore", link: "/explore" },
   { icon: IoIosCreate, label: "Create", link: "/create" },
-  { icon: NavigationProfile, label: "Profile", link: "/profile" },
 ];

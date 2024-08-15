@@ -1,3 +1,5 @@
+"use client";
+
 import { createClient } from "../client";
 
 async function logInWithKakao() {
@@ -11,8 +13,6 @@ async function logInWithKakao() {
   if (error) {
     throw new Error("Failed to sign in with Kakao");
   }
-
-  return data;
 }
 
 export default logInWithKakao;
