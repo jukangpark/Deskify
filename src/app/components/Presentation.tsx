@@ -4,10 +4,12 @@ const Presentation = ({
   image,
   user_id,
   content,
+  username,
 }: {
   image: string;
   user_id: string;
   content: string;
+  username: string | undefined;
 }) => {
   return (
     <div className="w-[468px] h-[585px] border border-gray-600">
@@ -19,7 +21,7 @@ const Presentation = ({
         className="w-full h-full object-cover "
       />
       <p className="p-2">
-        <span className="font-black">username</span> : {""}
+        <span className="font-black">{username}</span> : {""}
         <span className="font-extralight">{content}</span>
       </p>
     </div>

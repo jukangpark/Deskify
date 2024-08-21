@@ -22,15 +22,24 @@ const calculateTimeAgo = (createdAt: string) => {
 const PresentationHeader = ({
   created_at,
   user_id,
+  avatar_url,
+  username,
 }: {
   created_at: string;
   user_id: string;
+  avatar_url: string | undefined;
+  username: string | undefined;
 }) => {
   const hoursAgo = calculateTimeAgo(created_at);
 
   return (
     <div className="h-[46px] mb-[12px]">
-      <PresentationMiniProfile hoursAgo={hoursAgo} user_id={user_id} />
+      <PresentationMiniProfile
+        hoursAgo={hoursAgo}
+        user_id={user_id}
+        avatar_url={avatar_url}
+        username={username}
+      />
     </div>
   );
 };

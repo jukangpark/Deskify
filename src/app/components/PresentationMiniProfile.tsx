@@ -1,11 +1,16 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const PresentationMiniProfile = ({
   hoursAgo,
   user_id,
+  avatar_url,
+  username,
 }: {
   hoursAgo: string;
   user_id: string;
+  avatar_url: string | undefined;
+  username: string | undefined;
 }) => {
   return (
     <div>
@@ -15,8 +20,19 @@ const PresentationMiniProfile = ({
             href={`/profile/${user_id}`}
             className="display: flex items-center"
           >
-            <div className="w-[42px] h-[42px] bg-gray-600 rounded-full"></div>
-            <span className="ml-2 text-[14px]">Profile</span>
+            {avatar_url ? (
+              <Image
+                src={`${avatar_url}`}
+                alt=""
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
+            ) : (
+              <div className="w-[32px] h-[32px] bg-gray-300 rounded-full"></div>
+            )}
+
+            <span className="ml-2 text-[14px]">{username}</span>
           </Link>
         </div>
         <div className="pr-3 text-gray-500">{hoursAgo}</div>
