@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Feed from "@/app/components/layout/Feed";
 import getUserProfileDataById from "@/app/lib/api/getUserProfileDataById";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import IUser from "@/app/types/IUser";
 
 interface ProfilePageProps {
   params: {
@@ -8,19 +13,31 @@ interface ProfilePageProps {
   };
 }
 
-async function ProfilePage(props: ProfilePageProps) {
+const ProfilePage = (props: ProfilePageProps) => {
+  const router = useRouter();
+  const [user, setUser] = useState<IUser | null>(null);
   const items = Array.from({ length: 9 }); // 40개의 아이템을 생성
   const { id } = props.params;
 
-  let data = {
-    username: "",
-    avatar_url: "",
-  };
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getUserProfileDataById(id);
 
-  try {
-    data = await getUserProfileDataById(id);
-  } catch (error) {
-    console.error(error);
+        if (data) {
+          setUser(data);
+        } else {
+          router.push("/404");
+        }
+      } catch (error) {
+        console.error(error);
+        router.push("/404");
+      }
+    })();
+  }, []);
+
+  if (!user) {
+    return null;
   }
 
   return (
@@ -28,10 +45,10 @@ async function ProfilePage(props: ProfilePageProps) {
       <Feed>
         <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
           <div>
-            {data.avatar_url ? (
+            {user.avatar_url ? (
               <Image
                 className="rounded-full"
-                src={data?.avatar_url}
+                src={user.avatar_url}
                 alt="avatar"
                 width={150}
                 height={150}
@@ -41,8 +58,8 @@ async function ProfilePage(props: ProfilePageProps) {
             )}
           </div>
           <div className="ml-4">
-            {data?.username ? (
-              <h1 className="text-[20px]">{data?.username}</h1>
+            {user.username ? (
+              <h1 className="text-[20px]">{user.username}</h1>
             ) : (
               <>
                 <h1>User not found</h1>
@@ -65,6 +82,6 @@ async function ProfilePage(props: ProfilePageProps) {
       </Feed>
     </div>
   );
-}
+};
 
 export default ProfilePage;

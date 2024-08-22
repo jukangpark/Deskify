@@ -5,6 +5,7 @@ import Presentation from "./Presentation";
 import PresentationHeader from "./PresentationHeader";
 import IPost from "@/app/types/IPost";
 import getUserProfileDataById from "@/app/lib/api/getUserProfileDataById";
+import Link from "next/link";
 
 const Post = ({
   id,
@@ -41,12 +42,14 @@ const Post = ({
         avatar_url={avatar_url}
         username={username}
       />
-      <Presentation
-        image={image}
-        user_id={user_id}
-        content={content}
-        username={username}
-      />
+      <Link href={`/post/${id}`}>
+        <Presentation
+          image={image}
+          user_id={user_id}
+          content={content}
+          username={username}
+        />
+      </Link>
     </div>
   );
 };
