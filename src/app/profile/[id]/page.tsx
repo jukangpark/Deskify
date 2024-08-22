@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Feed from "@/app/components/layout/Feed";
-import Navigation from "@/app/components/layout/Navigation";
 import getUserProfileDataById from "@/app/lib/api/getUserProfileDataById";
 
 interface ProfilePageProps {
@@ -26,7 +25,6 @@ async function ProfilePage(props: ProfilePageProps) {
 
   return (
     <div>
-      <Navigation />
       <Feed>
         <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
           <div>

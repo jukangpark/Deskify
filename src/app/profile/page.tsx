@@ -2,7 +2,6 @@ import Feed from "../components/layout/Feed";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import Navigation from "../components/layout/Navigation";
 
 async function ProfilePage() {
   const items = Array.from({ length: 9 }); // 40개의 아이템을 생성
@@ -23,7 +22,6 @@ async function ProfilePage() {
 
   return (
     <div>
-      <Navigation />
       <Feed>
         <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
           <div>
