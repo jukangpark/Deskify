@@ -3,7 +3,13 @@ import Feed from "@/app/components/layout/Feed";
 import Navigation from "@/app/components/layout/Navigation";
 import getUserProfileDataById from "@/app/lib/api/getUserProfileDataById";
 
-async function ProfilePage(props: any) {
+interface ProfilePageProps {
+  params: {
+    id: string;
+  };
+}
+
+async function ProfilePage(props: ProfilePageProps) {
   const items = Array.from({ length: 9 }); // 40개의 아이템을 생성
   const { id } = props.params;
 
