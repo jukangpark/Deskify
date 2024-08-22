@@ -4,7 +4,9 @@
     @description - profiles 테이블에서 user_id에 해당하는 유저의 모든 데이터를 가져옵니다.
 */
 const getUserProfileDataById = async (user_id: string) => {
-    const response = await fetch(`/api/user/${user_id}`);
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/user/${user_id}`,
+    );
     if (!response.ok) {
         throw new Error("Failed to fetch user data");
     }

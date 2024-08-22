@@ -17,6 +17,10 @@ async function ProfilePage() {
     redirect("/login");
   }
 
+  const {
+    user_metadata: { user_name },
+  } = user;
+
   return (
     <div>
       <Navigation />
@@ -32,7 +36,7 @@ async function ProfilePage() {
             />
           </div>
           <div className="ml-4">
-            <h1 className="text-[20px]">{"user.name"}</h1>
+            <h1 className="text-[20px]">{user_name}</h1>
           </div>
         </div>
 
