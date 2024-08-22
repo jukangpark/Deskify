@@ -1,4 +1,4 @@
-"user client";
+"use client";
 
 import Image from "next/image";
 import logInWithKakao from "@/utils/supabase/auth/logInWithKakao";

@@ -1,26 +1,34 @@
+"use client";
+
+import { useRecoilValue } from "recoil";
 import Feed from "../components/layout/Feed";
 import UploadPostForm from "./UploadPostForm";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import loginUserAtom from "@/atom/loginUserAtom";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-async function CreatePage() {
-  const supabase = await createClient();
+const CreatePage = () => {
+  const router = useRouter();
+  const user = useRecoilValue(loginUserAtom);
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  useEffect(() => {
+    if (!user) {
+      router.push("/login"); // 상태 업데이트는 useEffect 내부에서 처리
+    }
+  }, [user, router]);
 
+  // 사용자가 로그인되지 않은 경우 렌더링하지 않음
   if (!user) {
-    redirect("/login");
+    return null;
   }
 
   return (
     <div className="min-h-screen p-6">
       <Feed>
-        <UploadPostForm userId={user.id} />
+        <UploadPostForm userId={user?.id} />
       </Feed>
     </div>
   );
-}
+};
 
 export default CreatePage;

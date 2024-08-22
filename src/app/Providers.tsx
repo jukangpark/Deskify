@@ -1,5 +1,7 @@
 "use client";
 
+import { RecoilRoot } from "recoil";
+
 // import { ThemeProvider } from "next-themes";
 
 interface ProvidersProps {
@@ -8,11 +10,13 @@ interface ProvidersProps {
 
 const Providers = ({ children }: ProvidersProps) => {
   return (
-    <div>
-      {/* [To Do] : Add Theme */}
-      {/* <ThemeProvider>{children}</ThemeProvider> */}
-      {children}
-    </div>
+    <RecoilRoot>
+      <div>
+        {/* [To Do] : Add Theme */}
+        {/* <ThemeProvider>{children}</ThemeProvider> */}
+        {children}
+      </div>
+    </RecoilRoot>
   );
 };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import Feed from "../components/layout/Feed";
 import LogInButton from "./LogInButton";
 

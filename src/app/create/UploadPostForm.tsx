@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ChangeEvent, FormEvent } from "react";
 import uploadPostWithImage from "@/utils/supabase/api/uploadPostwithImage";
 
-const UploadPostForm = ({ userId }: { userId: string }) => {
+const UploadPostForm = ({ userId }: { userId: string | undefined }) => {
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null); // 파일 입력 필드를 참조하기 위한 ref
