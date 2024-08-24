@@ -6,6 +6,9 @@ import getUserProfileDataById from "@/app/lib/api/getUserProfileDataById";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import IUser from "@/app/types/IUser";
+import IPost from "@/app/types/IPost";
+import getPostsByUserId from "@/utils/supabase/api/getPostsByUserId";
+import ProfilePost from "@/app/components/profile/ProfilePost";
 
 interface ProfilePageProps {
   params: {
@@ -16,7 +19,7 @@ interface ProfilePageProps {
 const ProfilePage = (props: ProfilePageProps) => {
   const router = useRouter();
   const [user, setUser] = useState<IUser | null>(null);
-  const items = Array.from({ length: 9 }); // 40개의 아이템을 생성
+  const [posts, setPosts] = useState<IPost[]>([]);
   const { id } = props.params;
 
   useEffect(() => {
@@ -36,51 +39,46 @@ const ProfilePage = (props: ProfilePageProps) => {
     })();
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        const posts = await getPostsByUserId(user.id);
+
+        setPosts(posts);
+      })();
+    }
+  }, [user]);
+
   if (!user) {
     return null;
   }
 
   return (
-    <div>
-      <Feed>
+    <Feed>
+      <div>
         <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
           <div>
-            {user.avatar_url ? (
-              <Image
-                className="rounded-full"
-                src={user.avatar_url}
-                alt="avatar"
-                width={150}
-                height={150}
-              />
-            ) : (
-              <div className="w-[150px] h-[150px] bg-gray-600 rounded-full"></div>
-            )}
+            <Image
+              className="rounded-full"
+              src={user.avatar_url}
+              alt="avatar"
+              width={150}
+              height={150}
+            />
           </div>
           <div className="ml-4">
-            {user.username ? (
-              <h1 className="text-[20px]">{user.username}</h1>
-            ) : (
-              <>
-                <h1>User not found</h1>
-                <p className="text-color-[gray]">
-                  The user you are looking for does not exist.
-                </p>
-              </>
-            )}
+            <h1 className="text-[20px]">{user.username}</h1>
           </div>
         </div>
 
         <div className="grid grid-cols-3 gap-1 max-w-[910px] mx-auto mt-20">
-          {items.map((_, index) => (
-            <div
-              key={index}
-              className="w-[300px] h-[300px] bg-gray-300 border border-gray-600 "
-            />
-          ))}
+          {posts.map((postData, index) => {
+            const { id: post_id, image } = postData;
+            return <ProfilePost key={index} post_id={post_id} image={image} />;
+          })}
         </div>
-      </Feed>
-    </div>
+      </div>
+    </Feed>
   );
 };
 
