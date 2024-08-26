@@ -2,12 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 const PresentationMiniProfile = ({
-  hoursAgo,
+  date,
   user_id,
   avatar_url,
   username,
 }: {
-  hoursAgo: string;
+  date: string;
   user_id: string;
   avatar_url: string | undefined;
   username: string | undefined;
@@ -35,7 +35,7 @@ const PresentationMiniProfile = ({
             <span className="ml-2 text-[14px]">{username}</span>
           </Link>
         </div>
-        <div className="pr-3 text-gray-500">{hoursAgo}</div>
+        <div className="pr-3 text-gray-500">{date}</div>
       </div>
     </div>
   );
