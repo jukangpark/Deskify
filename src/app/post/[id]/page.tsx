@@ -43,7 +43,7 @@ const PostPage = (props: PostPageProps) => {
   return (
     <div className="min-h-screen p-6">
       <Feed>
-        <div className="w-[630px] mx-auto">
+        <div className="flex justify-center">
           <Post
             id={id}
             content={content}

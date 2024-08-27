@@ -6,7 +6,9 @@ interface FeedProps {
 
 const Feed: React.FC<FeedProps> = ({ children }) => {
   return (
-    <div className="mt-[24px] w-[calc(100%-335px)] ml-[336px]">{children}</div>
+    <div className="mt-[24px] w-full sm:w-[calc(100%-335px)] sm:ml-[336px]">
+      {children}
+    </div>
   );
 };
 

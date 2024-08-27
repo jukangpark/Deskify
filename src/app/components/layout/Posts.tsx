@@ -19,23 +19,25 @@ const Posts = () => {
   }, []);
 
   return (
-    <div className="w-[630px] mx-auto">
-      {posts.map((postData) => {
-        const { id, content, image, user_id, created_at, updated_at } =
-          postData;
+    <div className="flex justify-center">
+      <div>
+        {posts.map((postData) => {
+          const { id, content, image, user_id, created_at, updated_at } =
+            postData;
 
-        return (
-          <Post
-            key={id}
-            id={id}
-            content={content}
-            image={image}
-            user_id={user_id}
-            created_at={created_at}
-            updated_at={updated_at}
-          />
-        );
-      })}
+          return (
+            <Post
+              key={id}
+              id={id}
+              content={content}
+              image={image}
+              user_id={user_id}
+              created_at={created_at}
+              updated_at={updated_at}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
