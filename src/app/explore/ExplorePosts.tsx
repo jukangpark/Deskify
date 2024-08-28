@@ -24,13 +24,16 @@ const ExplorePosts = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-3 gap-4 max-w-[932px] mx-auto">
+    <div className="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4 max-w-[932px] mx-auto">
       {posts.map((postData) => {
         const { id, content, image, user_id, created_at, updated_at } =
           postData;
 
         return (
-          <div key={id} className="w-[300px] h-[300px] relative">
+          <div
+            key={id}
+            className="w-[120px] h-[120px] sm:w-[350px] sm:h-[350px] relative"
+          >
             <Link href={`/post/${id}`}>
               <Image
                 src={image}
