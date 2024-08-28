@@ -1,6 +1,5 @@
 "use client";
 
-import Feed from "../components/layout/Feed";
 import Image from "next/image";
 import { useRecoilValue } from "recoil";
 import loginUserAtom from "@/atom/loginUserAtom";
@@ -39,7 +38,7 @@ const ProfilePage = () => {
   const user_name = user?.user_metadata.full_name;
 
   return (
-    <Feed>
+    <div>
       <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
         <div>
           <Image
@@ -61,7 +60,7 @@ const ProfilePage = () => {
           return <ProfilePost key={index} post_id={post_id} image={image} />;
         })}
       </div>
-    </Feed>
+    </div>
   );
 };
 

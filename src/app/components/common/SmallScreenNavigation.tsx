@@ -14,7 +14,7 @@ const SmallScreenNavigation = ({ user, pathname }: any) => {
   const isProfilePage = pathname === "/profile";
 
   return (
-    <ul className="flex sm:hidden fixed bottom-0 left-0 w-full h-[70px] border-t border-gray-600 bg-black justify-between z-50">
+    <ul className="flex sm:hidden fixed bottom-0 left-0 w-full h-[50px] border-t border-gray-600 bg-black justify-between z-50">
       <div className="flex w-full items-center justify-between">
         {navigationArray.map((item) => {
           const isViewPage = item.link === pathname;

@@ -9,10 +9,10 @@ const NavigationLogo = () => {
           className="rounded-full"
           src="/images/DeskifyLogo.png"
           alt="logo"
-          width={50}
-          height={50}
+          width={35}
+          height={35}
         />
-        <span>Deskify</span>
+        <span className="hidden md:block">Deskify</span>
       </Link>
     </div>
   );

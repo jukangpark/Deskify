@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Feed from "@/app/components/layout/Feed";
 import getUserProfileDataById from "@/app/lib/api/getUserProfileDataById";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -54,31 +53,29 @@ const ProfilePage = (props: ProfilePageProps) => {
   }
 
   return (
-    <Feed>
-      <div>
-        <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
-          <div>
-            <Image
-              className="rounded-full"
-              src={user.avatar_url}
-              alt="avatar"
-              width={150}
-              height={150}
-            />
-          </div>
-          <div className="ml-4">
-            <h1 className="text-[20px]">{user.username}</h1>
-          </div>
+    <div>
+      <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
+        <div>
+          <Image
+            className="rounded-full"
+            src={user.avatar_url}
+            alt="avatar"
+            width={150}
+            height={150}
+          />
         </div>
-
-        <div className="grid grid-cols-3 gap-1 max-w-[910px] mx-auto mt-20">
-          {posts.map((postData, index) => {
-            const { id: post_id, image } = postData;
-            return <ProfilePost key={index} post_id={post_id} image={image} />;
-          })}
+        <div className="ml-4">
+          <h1 className="text-[20px]">{user.username}</h1>
         </div>
       </div>
-    </Feed>
+
+      <div className="grid grid-cols-3 gap-1 max-w-[910px] mx-auto mt-20">
+        {posts.map((postData, index) => {
+          const { id: post_id, image } = postData;
+          return <ProfilePost key={index} post_id={post_id} image={image} />;
+        })}
+      </div>
+    </div>
   );
 };
 

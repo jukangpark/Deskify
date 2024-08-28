@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Feed from "../../components/layout/Feed";
 import Post from "../../components/Post";
 import getPostById from "@/utils/supabase/api/getPostById";
 import IPost from "@/app/types/IPost";
@@ -42,18 +41,16 @@ const PostPage = (props: PostPageProps) => {
 
   return (
     <div className="min-h-screen p-6">
-      <Feed>
-        <div className="flex justify-center">
-          <Post
-            id={id}
-            content={content}
-            image={image}
-            user_id={user_id}
-            created_at={created_at}
-            updated_at={updated_at}
-          />
-        </div>
-      </Feed>
+      <div className="flex justify-center">
+        <Post
+          id={id}
+          content={content}
+          image={image}
+          user_id={user_id}
+          created_at={created_at}
+          updated_at={updated_at}
+        />
+      </div>
     </div>
   );
 };

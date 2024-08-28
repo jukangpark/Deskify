@@ -1,7 +1,6 @@
 "use client";
 
 import { useRecoilValue } from "recoil";
-import Feed from "../components/layout/Feed";
 import UploadPostForm from "./UploadPostForm";
 import loginUserAtom from "@/atom/loginUserAtom";
 import { useRouter } from "next/navigation";
@@ -24,9 +23,7 @@ const CreatePage = () => {
 
   return (
     <div className="min-h-screen p-6">
-      <Feed>
-        <UploadPostForm userId={user?.id} />
-      </Feed>
+      <UploadPostForm userId={user?.id} />
     </div>
   );
 };
