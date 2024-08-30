@@ -4,6 +4,9 @@ Check out our [Instagram](https://www.instagram.com/deskify_official/)
 
 ![Deskify](https://github.com/user-attachments/assets/b6f702b3-c119-4e88-b4a0-32ebe80d1d6c)
 
+![image](https://github.com/user-attachments/assets/50394057-7f0b-4052-9d8a-822ff6cf0eff)
+
+
 ![image](https://github.com/user-attachments/assets/cfbaab46-bd8c-4e9b-b07d-57909a699df2)
 
 ![Next.js](https://img.shields.io/badge/Made%20with-Next.js-000000?logo=next.js&logoColor=white) <br/>
