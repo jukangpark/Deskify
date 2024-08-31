@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ChangeEvent, FormEvent } from "react";
 import uploadPostWithImage from "@/utils/supabase/api/uploadPostwithImage";
 
 const UploadPostForm = ({ userId }: { userId: string | undefined }) => {
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null); // 파일 입력 필드를 참조하기 위한 ref
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -31,12 +31,9 @@ const UploadPostForm = ({ userId }: { userId: string | undefined }) => {
       return alert("파일과 내용을 모두 입력해주세요.");
     }
 
-    // uploadPostWithImage 함수를 호출하여 파일 업로드와 게시글 삽입을 처리합니다.
-
     try {
       await uploadPostWithImage(file, content, userId);
 
-      // 폼 초기화
       setContent("");
       setFile(null);
       if (fileInputRef.current) {
@@ -50,31 +47,36 @@ const UploadPostForm = ({ userId }: { userId: string | undefined }) => {
   };
 
   return (
-    <>
-      <h1 className="text-2xl font-bold mb-4">게시글 작성 페이지</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div>
+      <h1 className="mb-6 text-3xl font-extrabold text-gray-200">
+        게시글 작성
+      </h1>
+      <form
+        onSubmit={handleSubmit}
+        className="p-6 space-y-6 bg-gray-800 rounded-lg shadow-lg"
+      >
         <div>
           <label
             htmlFor="file"
-            className="block text-lg font-medium text-white-700"
+            className="block text-lg font-semibold text-gray-300"
           >
             이미지 파일
           </label>
           <input
-            ref={fileInputRef} // ref로 파일 입력 필드를 참조
+            ref={fileInputRef}
             id="file"
             name="file"
             type="file"
             onChange={handleFileChange}
             required={true}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-3 mt-2 text-gray-200 bg-gray-900 border border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
 
         <div>
           <label
             htmlFor="content"
-            className="block text-lg font-medium text-white-700"
+            className="block text-lg font-semibold text-gray-300"
           >
             내용
           </label>
@@ -84,19 +86,19 @@ const UploadPostForm = ({ userId }: { userId: string | undefined }) => {
             value={content}
             onChange={handleContentChange}
             rows={4}
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-black"
+            className="block w-full p-3 mt-2 text-gray-200 bg-gray-900 border border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             placeholder="게시글 내용을 입력하세요"
           />
         </div>
 
         <button
           type="submit"
-          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-black-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black-500"
+          className="inline-flex justify-center px-6 py-3 text-lg font-semibold text-white transition duration-300 bg-gray-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           게시글 작성
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

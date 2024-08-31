@@ -10,7 +10,6 @@ import SmallScreenNavigation from "../common/SmallScreenNavigation";
 
 const Navigation = () => {
   const pathname = usePathname();
-
   const [user, setUser] = useRecoilState(loginUserAtom);
 
   useEffect(() => {
@@ -20,6 +19,11 @@ const Navigation = () => {
       } = await createClient().auth.getUser();
 
       setUser(user);
+      if (user) {
+        localStorage.setItem("isLoggedIn", JSON.stringify(true));
+      } else {
+        localStorage.removeItem("isLoggedIn");
+      }
     })();
   }, []);
 

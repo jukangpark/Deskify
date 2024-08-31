@@ -1,24 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useRecoilValue } from "recoil";
-import loginUserAtom from "@/atom/loginUserAtom";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import IPost from "../types/IPost";
 import getPostsByUserId from "@/utils/supabase/api/getPostsByUserId";
 import ProfilePost from "../components/profile/ProfilePost";
+import useRequireAuth from "@/hooks/useRequireAuth";
 
 const ProfilePage = () => {
-  const router = useRouter();
+  const user = useRequireAuth();
   const [posts, setPosts] = useState<IPost[]>([]);
-  const user = useRecoilValue(loginUserAtom);
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/login"); // 상태 업데이트는 useEffect 내부에서 처리
-    }
-  }, [user, router]);
 
   useEffect(() => {
     if (user) {
