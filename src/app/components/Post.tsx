@@ -5,10 +5,9 @@ import Presentation from "./Presentation";
 import PresentationHeader from "./PresentationHeader";
 import IPost from "@/app/types/IPost";
 import getUserProfileDataById from "@/utils/supabase/api/getUserProfileDataById";
-import Link from "next/link";
 
 const Post = ({
-  id,
+  id: post_id, // server 데이터 스키마 인터페이스를 그대로 사용하고, props 이름의 명확함을 위해 id를 post_id로 변경 [To Do] 테이블 데이터 스키마를 변경해도 좋을듯.
   content,
   image,
   user_id,
@@ -40,14 +39,13 @@ const Post = ({
         avatar_url={avatar_url}
         username={username}
       />
-      <Link href={`/post/${id}`}>
-        <Presentation
-          image={image}
-          user_id={user_id}
-          content={content}
-          username={username}
-        />
-      </Link>
+      <Presentation
+        image={image}
+        post_id={post_id}
+        user_id={user_id}
+        content={content}
+        username={username}
+      />
     </div>
   );
 };
