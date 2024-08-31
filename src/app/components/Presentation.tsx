@@ -17,8 +17,14 @@ const Presentation = ({
         <Image
           src={image}
           alt="post"
-          layout="fill" // 부모 컨테이너의 크기에 맞춰 이미지를 채웁니다.
-          objectFit="cover" // 이미지를 비율을 유지하면서 부모 크기에 맞게 채웁니다.
+          width={466}
+          height={583}
+          style={{
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
+          }}
+          priority={true} // Add the priority prop
         />
       </div>
       <p className="p-2">

@@ -17,7 +17,7 @@ const ProfilePost = ({ post_id, image }: ProfilePostProps) => {
         src={image}
         width={300}
         height={300}
-        className="w-full h-full object-cover "
+        className="object-cover w-full h-full"
       />
     </Link>
   );

@@ -1,11 +1,7 @@
 import ExplorePosts from "./ExplorePosts";
 
 const ExplorePage = () => {
-  return (
-    <div>
-      <ExplorePosts />
-    </div>
-  );
+  return <ExplorePosts />;
 };
 
 export default ExplorePage;
