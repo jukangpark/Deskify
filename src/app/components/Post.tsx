@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Presentation from "./Presentation";
 import PresentationHeader from "./PresentationHeader";
 import IPost from "@/app/types/IPost";
-import getUserProfileDataById from "@/app/lib/api/getUserProfileDataById";
+import getUserProfileDataById from "@/utils/supabase/api/getUserProfileDataById";
 import Link from "next/link";
 
 const Post = ({
@@ -16,9 +16,7 @@ const Post = ({
   updated_at,
 }: IPost) => {
   const [userData, setUserData] = useState<any>(null);
-
-  const avatar_url = userData?.avatar_url;
-  const username = userData?.username;
+  const { avatar_url, username } = userData || {};
 
   useEffect(() => {
     // 유저 데이터를 가져오는 비동기 함수 호출
