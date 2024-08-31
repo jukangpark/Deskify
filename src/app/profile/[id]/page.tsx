@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import getUserProfileDataById from "@/app/lib/api/getUserProfileDataById";
+import getUserProfileDataById from "@/utils/supabase/api/getUserProfileDataById";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import IUser from "@/app/types/IUser";
