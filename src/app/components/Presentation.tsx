@@ -9,6 +9,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import ICommentWithUsername from "@/app/types/ICommentWithUsername";
 import { useRouter } from "next/navigation";
 import createComment from "@/utils/supabase/api/createComment";
+import { IoIosSend } from "react-icons/io";
+import ShareButton from "./common/ShareButton";
 
 dayjs.extend(relativeTime);
 
@@ -60,6 +62,7 @@ const Presentation = ({
           setComments={setComments}
           user_id={user_id}
         />
+        <ShareButton post_id={post_id} />
       </div>
       <div className="pl-2">
         <Link href={`/profile/${user_id}`}>
