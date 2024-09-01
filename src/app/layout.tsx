@@ -22,6 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/images/DeskifyLogo.png" />
+      </head>
       <body className={`${inter.className} bg-black text-white`}>
         <Providers>
           <div className="flex">
