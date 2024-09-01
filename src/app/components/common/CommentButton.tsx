@@ -1,4 +1,4 @@
-import IComment from "@/app/types/IComment";
+import ICommentWithUsername from "@/app/types/ICommentWithUsername";
 import createComment from "@/utils/supabase/api/createComment";
 import getCommentsByPostId from "@/utils/supabase/api/getCommentsByPostId";
 import { useRouter } from "next/navigation";
@@ -7,10 +7,15 @@ import { FaComment } from "react-icons/fa";
 
 interface CommentButtonProps {
   post_id: string;
-  setComments: (comments: IComment[]) => void;
+  setComments: (comments: ICommentWithUsername[]) => void;
+  user_id: string;
 }
 
-const CommentButton = ({ post_id, setComments }: CommentButtonProps) => {
+const CommentButton = ({
+  post_id,
+  setComments,
+  user_id,
+}: CommentButtonProps) => {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -25,11 +30,11 @@ const CommentButton = ({ post_id, setComments }: CommentButtonProps) => {
       if (!comment) {
         return;
       } else {
-        await createComment(comment, post_id);
+        await createComment(comment, post_id, "root", user_id);
         await getCommentsByPostId(post_id).then((data) => setComments(data));
       }
     }
-  }, [isLoggedIn, router, setComments, post_id]);
+  }, [isLoggedIn, router, setComments, post_id, user_id]);
 
   return (
     <FaComment
