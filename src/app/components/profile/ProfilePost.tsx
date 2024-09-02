@@ -8,18 +8,26 @@ interface ProfilePostProps {
 
 const ProfilePost = ({ post_id, image }: ProfilePostProps) => {
   return (
-    <Link
-      href={`/post/${post_id}`}
-      className="display: block w-[300px] h-[300px]"
+    <div
+      key={post_id}
+      className="relative w-full"
+      style={{ aspectRatio: "1/1" }}
     >
-      <Image
-        alt={post_id}
-        src={image}
-        width={300}
-        height={300}
-        className="object-cover w-full h-full"
-      />
-    </Link>
+      <Link href={`/post/${post_id}`}>
+        <Image
+          src={image}
+          alt={image}
+          layout="fill"
+          style={{
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
+            objectPosition: "center",
+          }}
+          priority={true} // Add the priority prop
+        />
+      </Link>
+    </div>
   );
 };
 
