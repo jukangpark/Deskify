@@ -8,13 +8,13 @@ import { FaComment } from "react-icons/fa";
 interface CommentButtonProps {
   post_id: string;
   setComments: (comments: ICommentWithUsername[]) => void;
-  user_id: string;
+  loggedInUserId: string | undefined;
 }
 
 const CommentButton = ({
   post_id,
   setComments,
-  user_id,
+  loggedInUserId,
 }: CommentButtonProps) => {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
@@ -30,11 +30,12 @@ const CommentButton = ({
       if (!comment) {
         return;
       } else {
-        await createComment(comment, post_id, "root", user_id);
+        if (!loggedInUserId) return console.error("Please log in first");
+        await createComment(comment, post_id, "root", loggedInUserId);
         await getCommentsByPostId(post_id).then((data) => setComments(data));
       }
     }
-  }, [isLoggedIn, router, setComments, post_id, user_id]);
+  }, [isLoggedIn, router, setComments, post_id, loggedInUserId]);
 
   return (
     <FaComment

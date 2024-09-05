@@ -9,7 +9,6 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import ICommentWithUsername from "@/app/types/ICommentWithUsername";
 import { useRouter } from "next/navigation";
 import createComment from "@/utils/supabase/api/createComment";
-import { IoIosSend } from "react-icons/io";
 import ShareButton from "./common/ShareButton";
 
 dayjs.extend(relativeTime);
@@ -18,12 +17,14 @@ const Presentation = ({
   image,
   post_id,
   user_id,
+  loggedInUserId,
   content,
   username,
 }: {
   image: string;
   post_id: string;
   user_id: string;
+  loggedInUserId: string | undefined;
   content: string;
   username: string | undefined;
 }) => {
@@ -60,7 +61,7 @@ const Presentation = ({
         <CommentButton
           post_id={post_id}
           setComments={setComments}
-          user_id={user_id}
+          loggedInUserId={loggedInUserId}
         />
         <ShareButton post_id={post_id} />
       </div>
@@ -76,14 +77,14 @@ const Presentation = ({
             content,
             id: comment_id,
             updated_at,
-            profiles: { username },
+            profiles,
             user_id,
             like_count,
           }) => {
             const date = dayjs(updated_at);
             return (
               <div key={comment_id} className="p-1 font-extralight">
-                <Link href={`profile/${user_id}`}>{username}</Link> :{" "}
+                <Link href={`profile/${user_id}`}>{profiles.username}</Link> :{" "}
                 <span className="text-gray-400">{content}</span>
                 <div>
                   <span className="text-sm text-gray-400">
@@ -110,7 +111,7 @@ const Presentation = ({
                             comment,
                             post_id,
                             comment_id,
-                            user_id
+                            loggedInUserId
                           );
                           await getCommentsByPostId(post_id).then((data) =>
                             setComments(data)

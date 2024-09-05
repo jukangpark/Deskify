@@ -5,6 +5,8 @@ import Presentation from "./Presentation";
 import PresentationHeader from "./PresentationHeader";
 import IPost from "@/app/types/IPost";
 import getUserProfileDataById from "@/utils/supabase/api/getUserProfileDataById";
+import { useRecoilValue } from "recoil";
+import loginUserAtom from "@/atom/loginUserAtom";
 
 const Post = ({
   id: post_id, // server 데이터 스키마 인터페이스를 그대로 사용하고, props 이름의 명확함을 위해 id를 post_id로 변경 [To Do] 테이블 데이터 스키마를 변경해도 좋을듯.
@@ -15,6 +17,7 @@ const Post = ({
   updated_at,
 }: IPost) => {
   const [userData, setUserData] = useState<any>(null);
+  const loggedInUser = useRecoilValue(loginUserAtom);
   const { avatar_url, username } = userData || {};
 
   useEffect(() => {
@@ -31,6 +34,8 @@ const Post = ({
     getUserData();
   }, [user_id]);
 
+  const loggedInUserId = loggedInUser?.id;
+
   return (
     <div className="w-[350px] sm:w-[479px] h-[813px] mb-[20px] border-b border-gray-600 pt-0 pr-0 pb-[16px] pl-0">
       <PresentationHeader
@@ -43,6 +48,7 @@ const Post = ({
         image={image}
         post_id={post_id}
         user_id={user_id}
+        loggedInUserId={loggedInUserId}
         content={content}
         username={username}
       />
