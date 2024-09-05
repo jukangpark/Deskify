@@ -31,13 +31,21 @@ const ProfilePage = () => {
   return (
     <div>
       <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
-        <div>
+        <div
+          style={{
+            width: "150px",
+            height: "150px",
+            borderRadius: "50%",
+            overflow: "hidden",
+          }}
+        >
           <Image
             className="rounded-full"
             src={user?.user_metadata.avatar_url}
             alt="avatar"
             width={150}
             height={150}
+            style={{ objectFit: "cover" }}
           />
         </div>
         <div className="ml-4">
