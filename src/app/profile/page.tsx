@@ -6,10 +6,14 @@ import IPost from "../types/IPost";
 import getPostsByUserId from "@/utils/supabase/api/getPostsByUserId";
 import ProfilePost from "../components/profile/ProfilePost";
 import useRequireAuth from "@/hooks/useRequireAuth";
+import getFollowersCountByUserId from "@/utils/supabase/api/getFollowerCountByUserId";
+import getFollowingCountByUserId from "@/utils/supabase/api/getFollowingCountByUserId";
 
 const ProfilePage = () => {
   const user = useRequireAuth();
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [followersCount, setFollowersCount] = useState<number>(0);
+  const [followingCount, setFollowingCount] = useState<number>(0);
 
   useEffect(() => {
     if (user) {
@@ -17,6 +21,17 @@ const ProfilePage = () => {
         const posts = await getPostsByUserId(user.id);
 
         setPosts(posts);
+      })();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        const followersCount = await getFollowersCountByUserId(user.id);
+        const followingCount = await getFollowingCountByUserId(user.id);
+        setFollowersCount(followersCount);
+        setFollowingCount(followingCount);
       })();
     }
   }, [user]);
@@ -48,8 +63,20 @@ const ProfilePage = () => {
             style={{ objectFit: "cover" }}
           />
         </div>
+
         <div className="ml-4">
           <h1 className="text-[20px]">{user_name}</h1>
+          <div className="flex">
+            <div className="p-4">
+              <span className="font-black">{posts.length}</span> posts
+            </div>
+            <div className="p-4">
+              <span className="font-black">{followersCount}</span> followers
+            </div>
+            <div className="p-4">
+              <span className="font-black">{followingCount}</span> following
+            </div>
+          </div>
         </div>
       </div>
 

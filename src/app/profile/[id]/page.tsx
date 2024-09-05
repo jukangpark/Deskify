@@ -8,6 +8,8 @@ import IUser from "@/app/types/IUser";
 import IPost from "@/app/types/IPost";
 import getPostsByUserId from "@/utils/supabase/api/getPostsByUserId";
 import ProfilePost from "@/app/components/profile/ProfilePost";
+import getFollowersCountByUserId from "@/utils/supabase/api/getFollowerCountByUserId";
+import getFollowingCountByUserId from "@/utils/supabase/api/getFollowingCountByUserId";
 
 interface ProfilePageProps {
   params: {
@@ -19,6 +21,9 @@ const ProfilePage = (props: ProfilePageProps) => {
   const router = useRouter();
   const [user, setUser] = useState<IUser | null>(null);
   const [posts, setPosts] = useState<IPost[]>([]);
+  const [followersCount, setFollowersCount] = useState<number>(0);
+  const [followingCount, setFollowingCount] = useState<number>(0);
+
   const { id } = props.params;
 
   useEffect(() => {
@@ -48,6 +53,17 @@ const ProfilePage = (props: ProfilePageProps) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        const followersCount = await getFollowersCountByUserId(user.id);
+        const followingCount = await getFollowingCountByUserId(user.id);
+        setFollowersCount(followersCount);
+        setFollowingCount(followingCount);
+      })();
+    }
+  }, [user]);
+
   if (!user) {
     return null;
   }
@@ -72,8 +88,20 @@ const ProfilePage = (props: ProfilePageProps) => {
             style={{ objectFit: "cover" }}
           />
         </div>
+
         <div className="ml-4">
           <h1 className="text-[20px]">{user.username}</h1>
+          <div className="flex">
+            <div className="p-4">
+              <span className="font-black">{posts.length}</span> posts
+            </div>
+            <div className="p-4">
+              <span className="font-black">{followersCount}</span> followers
+            </div>
+            <div className="p-4">
+              <span className="font-black">{followingCount}</span> following
+            </div>
+          </div>
         </div>
       </div>
 

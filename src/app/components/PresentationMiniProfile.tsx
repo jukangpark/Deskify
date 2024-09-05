@@ -21,13 +21,23 @@ const PresentationMiniProfile = ({
             className="display: flex items-center"
           >
             {avatar_url ? (
-              <Image
-                src={`${avatar_url}`}
-                alt=""
-                width={32}
-                height={32}
-                className="rounded-full"
-              />
+              <div
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  overflow: "hidden",
+                  borderRadius: "50%",
+                }}
+              >
+                <Image
+                  className="rounded-full"
+                  src={`${avatar_url}`}
+                  alt="avatar"
+                  width={32}
+                  height={32}
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             ) : (
               <div className="w-[32px] h-[32px] bg-gray-300 rounded-full"></div>
             )}
