@@ -10,6 +10,8 @@ import getPostsByUserId from "@/utils/supabase/api/getPostsByUserId";
 import ProfilePost from "@/app/components/profile/ProfilePost";
 import getFollowersCountByUserId from "@/utils/supabase/api/getFollowerCountByUserId";
 import getFollowingCountByUserId from "@/utils/supabase/api/getFollowingCountByUserId";
+import { useRecoilValue } from "recoil";
+import loginUserAtom from "@/atom/loginUserAtom";
 
 interface ProfilePageProps {
   params: {
@@ -19,6 +21,7 @@ interface ProfilePageProps {
 
 const ProfilePage = (props: ProfilePageProps) => {
   const router = useRouter();
+  const loggedInUser = useRecoilValue(loginUserAtom);
   const [user, setUser] = useState<IUser | null>(null);
   const [posts, setPosts] = useState<IPost[]>([]);
   const [followersCount, setFollowersCount] = useState<number>(0);
@@ -68,6 +71,8 @@ const ProfilePage = (props: ProfilePageProps) => {
     return null;
   }
 
+  const isMyProfile = loggedInUser?.id === user?.id;
+
   return (
     <div>
       <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
@@ -92,12 +97,16 @@ const ProfilePage = (props: ProfilePageProps) => {
         <div className="ml-4">
           <h1 className="text-[20px] flex items-center space-x-4">
             <div>{user.username}</div>
-            <button className="block text-[14px] bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
-              Follow
-            </button>
-            <button className="block text-[14px] bg-gray-700 hover:bg-gray-500 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
-              Message
-            </button>
+            {!isMyProfile && (
+              <>
+                <button className="block text-[14px] bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
+                  Follow
+                </button>
+                <button className="block text-[14px] bg-gray-700 hover:bg-gray-500 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
+                  Message
+                </button>
+              </>
+            )}
           </h1>
           <div className="flex">
             <div className="p-4">
