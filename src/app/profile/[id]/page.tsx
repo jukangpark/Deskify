@@ -90,7 +90,15 @@ const ProfilePage = (props: ProfilePageProps) => {
         </div>
 
         <div className="ml-4">
-          <h1 className="text-[20px]">{user.username}</h1>
+          <h1 className="text-[20px] flex items-center space-x-4">
+            <div>{user.username}</div>
+            <button className="block text-[14px] bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
+              Follow
+            </button>
+            <button className="block text-[14px] bg-gray-700 hover:bg-gray-500 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
+              Message
+            </button>
+          </h1>
           <div className="flex">
             <div className="p-4">
               <span className="font-black">{posts.length}</span> posts
