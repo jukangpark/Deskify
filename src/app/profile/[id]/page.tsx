@@ -72,6 +72,7 @@ const ProfilePage = (props: ProfilePageProps) => {
   }
 
   const isMyProfile = loggedInUser?.id === user?.id;
+  const isLoggedIn = loggedInUser?.id;
 
   return (
     <div>
@@ -97,7 +98,7 @@ const ProfilePage = (props: ProfilePageProps) => {
         <div className="ml-4">
           <h1 className="text-[20px] flex items-center space-x-4">
             <div>{user.username}</div>
-            {!isMyProfile && (
+            {!isMyProfile && isLoggedIn && (
               <>
                 <button className="block text-[14px] bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
                   Follow
