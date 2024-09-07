@@ -53,7 +53,7 @@ const UploadPostForm = ({ userId }: { userId: string | undefined }) => {
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="p-6 space-y-6 bg-gray-800 rounded-lg shadow-lg"
+        className="p-6 space-y-6 rounded-lg shadow-lg"
       >
         <div>
           <label
@@ -69,7 +69,7 @@ const UploadPostForm = ({ userId }: { userId: string | undefined }) => {
             type="file"
             onChange={handleFileChange}
             required={true}
-            className="block w-full p-3 mt-2 text-gray-200 bg-gray-900 border border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-3 mt-2 text-gray-200 border border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
 
@@ -86,14 +86,14 @@ const UploadPostForm = ({ userId }: { userId: string | undefined }) => {
             value={content}
             onChange={handleContentChange}
             rows={4}
-            className="block w-full p-3 mt-2 text-gray-200 bg-gray-900 border border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full p-3 mt-2 text-gray-200 bg-transparent border border-gray-600 rounded-md shadow-sm focus:ring-white-500 focus:border-white-500 sm:text-sm"
             placeholder="게시글 내용을 입력하세요"
           />
         </div>
 
         <button
           type="submit"
-          className="inline-flex justify-center px-6 py-3 text-lg font-semibold text-white transition duration-300 bg-gray-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="inline-flex justify-center px-3 py-1 text-sm font-semibold text-white transition duration-300 bg-gray-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           게시글 작성
         </button>

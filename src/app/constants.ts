@@ -1,6 +1,10 @@
 import { GoHomeFill } from "react-icons/go";
 import { MdExplore } from "react-icons/md";
-import { IoIosCreate } from "react-icons/io";
+import { FaSearch } from "react-icons/fa";
+import { IoMdCreate } from "react-icons/io";
+import { BiMessageSquareDetail } from "react-icons/bi";
+import { AiFillNotification } from "react-icons/ai";
+
 import { IconType } from "react-icons"; // Import IconType
 
 interface NavigationItem {
@@ -11,6 +15,9 @@ interface NavigationItem {
 
 export const navigationArray: NavigationItem[] = [
   { icon: GoHomeFill, label: "Home", link: "/" },
+  { icon: FaSearch, label: "Search", link: "/search" },
   { icon: MdExplore, label: "Explore", link: "/explore" },
-  { icon: IoIosCreate, label: "Create", link: "/create" },
+  { icon: BiMessageSquareDetail, label: "Messages", link: "/messages" },
+  { icon: AiFillNotification, label: "Notifications", link: "/notifications" },
+  { icon: IoMdCreate, label: "Create", link: "/create" },
 ];

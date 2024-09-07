@@ -10,20 +10,18 @@ const getNavItemClasses = (isActive: boolean) =>
 
 const SmallScreenNavigation = ({ user, pathname }: any) => {
   // Navigation 호버 시 색상
-  const hoverBgColor = "bg-gray-200";
+  const hoverTextColor = "hover:text-white"; // hover 시 텍스트를 검은색으로 변경
   const isProfilePage = pathname === "/profile";
 
   return (
-    <ul className="flex sm:hidden fixed bottom-0 left-0 w-full h-[50px] border-t border-gray-600 bg-black justify-between z-50">
+    <ul className="flex sm:hidden fixed bottom-0 left-0 w-full h-[50px] border-t border-gray-600 bg-black justify-between z-50 overflow-hidden">
       <div className="flex w-full items-center justify-between">
         {navigationArray.map((item) => {
           const isViewPage = item.link === pathname;
           return (
             <li
               key={item.link}
-              className={`${getNavItemClasses(
-                isViewPage
-              )} hover:${hoverBgColor}`}
+              className={`${getNavItemClasses(isViewPage)} ${hoverTextColor}`}
             >
               <Link
                 href={item.link}
@@ -34,11 +32,7 @@ const SmallScreenNavigation = ({ user, pathname }: any) => {
             </li>
           );
         })}
-        <li
-          className={`${getNavItemClasses(
-            isProfilePage
-          )} hover:${hoverBgColor}`}
-        >
+        <li className={`${getNavItemClasses(isProfilePage)} ${hoverTextColor}`}>
           <Link
             href={"/profile"}
             className="flex w-full h-full items-center justify-center"
