@@ -12,6 +12,8 @@ import getFollowersCountByUserId from "@/utils/supabase/api/getFollowerCountByUs
 import getFollowingCountByUserId from "@/utils/supabase/api/getFollowingCountByUserId";
 import { useRecoilValue } from "recoil";
 import loginUserAtom from "@/atom/loginUserAtom";
+import toggleFollowUser from "@/utils/supabase/api/toggleFollowUser";
+import getIsFollowingByLoggedInUserId from "@/utils/supabase/api/getIsFollowingByLoggedInUserId";
 
 interface ProfilePageProps {
   params: {
@@ -26,6 +28,7 @@ const ProfilePage = (props: ProfilePageProps) => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [followersCount, setFollowersCount] = useState<number>(0);
   const [followingCount, setFollowingCount] = useState<number>(0);
+  const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
   const { id } = props.params;
 
@@ -67,6 +70,20 @@ const ProfilePage = (props: ProfilePageProps) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        const isFollowing = await getIsFollowingByLoggedInUserId(
+          user.id,
+          loggedInUser?.id
+        );
+
+        console.log("isFollowing", isFollowing);
+        setIsFollowing(isFollowing);
+      })();
+    }
+  }, [loggedInUser, user]);
+
   if (!user) {
     return null;
   }
@@ -100,8 +117,24 @@ const ProfilePage = (props: ProfilePageProps) => {
             <div>{user.username}</div>
             {!isMyProfile && isLoggedIn && (
               <>
-                <button className="block text-[14px] bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
-                  Follow
+                <button
+                  className="block text-[14px] bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out"
+                  onClick={async () => {
+                    await toggleFollowUser(user.id, loggedInUser.id);
+                    const followersCount = await getFollowersCountByUserId(
+                      user.id
+                    );
+                    setFollowersCount(followersCount);
+                    const isFollowingData =
+                      await getIsFollowingByLoggedInUserId(
+                        user.id,
+                        loggedInUser.id
+                      );
+                    setIsFollowing(isFollowingData);
+                  }}
+                >
+                  {isFollowing ? "Unfollow" : "Follow"}
+                  {/* isLoading 상태 추가하여, 팔로우 데이터를 받아오기전까지, ...loading 으로 표시 */}
                 </button>
                 <button className="block text-[14px] bg-gray-700 hover:bg-gray-500 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
                   Message
