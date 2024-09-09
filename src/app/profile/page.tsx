@@ -46,14 +46,7 @@ const ProfilePage = () => {
   return (
     <div>
       <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
-        <div
-          style={{
-            width: "150px",
-            height: "150px",
-            borderRadius: "50%",
-            overflow: "hidden",
-          }}
-        >
+        <div className="w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] rounded-full overflow-hidden">
           <Image
             className="rounded-full"
             src={user?.user_metadata.avatar_url}
@@ -64,16 +57,16 @@ const ProfilePage = () => {
           />
         </div>
 
-        <div className="ml-4">
+        <div className="ml-1 sm:ml-4">
           <h1 className="text-[20px]">{user_name}</h1>
           <div className="flex">
-            <div className="p-4">
+            <div className="p-1 sm:p-4">
               <span className="font-black">{posts.length}</span> posts
             </div>
-            <div className="p-4">
+            <div className="p-1 sm:p-4">
               <span className="font-black">{followersCount}</span> followers
             </div>
-            <div className="p-4">
+            <div className="p-1 sm:p-4">
               <span className="font-black">{followingCount}</span> following
             </div>
           </div>
