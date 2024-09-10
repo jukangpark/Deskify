@@ -32,7 +32,12 @@ const MessagesPage = () => {
         <div className="p-4 font-bold text-lg dark:text-white">Messages</div>
         <div className="overflow-y-auto h-full">
           {/* 대화 목록 */}
-          <ChatRoomList chatRoomList={chatRoomList} />
+          {user && (
+            <ChatRoomList
+              chatRoomList={chatRoomList}
+              loggedInUserId={user.id}
+            />
+          )}
         </div>
       </div>
 
