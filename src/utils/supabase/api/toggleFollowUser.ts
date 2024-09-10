@@ -38,7 +38,6 @@ const toggleFollowUser = async (
             return "error";
         }
 
-        console.log("User has been unfollowed.");
         return "unfollowed";
     }
 
@@ -52,7 +51,6 @@ const toggleFollowUser = async (
         return "error";
     }
 
-    console.log("User has been followed.");
     return "followed";
 };
 

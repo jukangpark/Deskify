@@ -78,7 +78,6 @@ const ProfilePage = (props: ProfilePageProps) => {
           loggedInUser?.id
         );
 
-        console.log("isFollowing", isFollowing);
         setIsFollowing(isFollowing);
       })();
     }
