@@ -1,33 +1,43 @@
-const MessageList = () => {
-  const messages = [
-    { sender: "me", text: "Hello!", time: "2h" },
-    { sender: "other", text: "Hi! How are you?", time: "1h" },
-    { sender: "me", text: "I'm good, thanks!", time: "30m" },
-  ];
+import IMessage from "@/app/types/IMessage";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
+dayjs.extend(relativeTime);
+
+interface MessageListProps {
+  messages: IMessage[];
+  loggedInUser: any;
+}
+
+const MessageList = ({ messages, loggedInUser }: MessageListProps) => {
   return (
     <div>
-      {messages.map((message, index) => (
-        <div
-          key={index}
-          className={`flex ${
-            message.sender === "me" ? "justify-end" : "justify-start"
-          }`}
-        >
+      {messages.map((message, index) => {
+        const { created_at, sender_id, text } = message;
+
+        const date = dayjs(created_at);
+        const isMyMessage = sender_id === loggedInUser.id;
+
+        return (
           <div
-            className={`p-2 my-2 rounded-lg ${
-              message.sender === "me"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 dark:bg-gray-700 dark:text-white"
-            } max-w-xs`}
+            key={index}
+            className={`flex ${isMyMessage ? "justify-end" : "justify-start"}`}
           >
-            {message.text}
-            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              {message.time}
+            <div
+              className={`p-2 my-2 rounded-lg ${
+                isMyMessage
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 dark:bg-gray-700 dark:text-white"
+              } max-w-xs`}
+            >
+              {message.text}
+              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                {date.fromNow()}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
