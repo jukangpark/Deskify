@@ -1,5 +1,7 @@
 import getUserProfileDataById from "@/utils/supabase/api/getUserProfileDataById";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface IChatRoom {
   id: string;
@@ -14,6 +16,8 @@ interface ChatRoomListProps {
 
 const ChatRoomList = ({ chatRoomList, loggedInUserId }: ChatRoomListProps) => {
   const [opponentProfiles, setOpponentProfiles] = useState<any>({});
+  const pathname = usePathname(); // 현재 경로 가져오기
+  const currentChatRoomId = pathname.split("/").pop(); // currentChatRoomId는 현재 채팅방 ID
 
   const getOpponentId = (chatRoom: IChatRoom, loggedInUserId: string) => {
     return chatRoom.user_1_id === loggedInUserId
@@ -53,11 +57,19 @@ const ChatRoomList = ({ chatRoomList, loggedInUserId }: ChatRoomListProps) => {
 
         const opponentId = getOpponentId(chatRoom, loggedInUserId);
         const opponentProfile = opponentProfiles[opponentId];
+        const isSelectedChatRoom = chatRoom.id === currentChatRoomId;
 
         return (
-          <li
+          <Link
+            href={`/messages/${chatRoom.id}`}
             key={index}
-            className="p-4 border-b border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+            className={`display: block p-4 border-b border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer
+                ${
+                  isSelectedChatRoom
+                    ? "bg-gray-300 dark:bg-gray-800" // 선택된 채팅방의 스타일
+                    : "hover:bg-gray-200 dark:hover:bg-gray-500"
+                }
+              `}
           >
             {/* 상대방의 ID 또는 추후 상대방 이름으로 변경 가능 */}
             <div className="font-bold dark:text-white">
@@ -69,7 +81,7 @@ const ChatRoomList = ({ chatRoomList, loggedInUserId }: ChatRoomListProps) => {
             <div className="text-xs text-gray-400 dark:text-gray-500">
               {time}
             </div>
-          </li>
+          </Link>
         );
       })}
     </ul>
