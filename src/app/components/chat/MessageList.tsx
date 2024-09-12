@@ -1,6 +1,7 @@
 import IMessage from "@/app/types/IMessage";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useEffect, useRef } from "react";
 
 dayjs.extend(relativeTime);
 
@@ -10,6 +11,16 @@ interface MessageListProps {
 }
 
 const MessageList = ({ messages, loggedInUser }: MessageListProps) => {
+  const bottomRef = useRef<HTMLDivElement>(null); // 마지막 메시지를 참조할 ref
+
+  // 채팅 메시지 생성시, 자동으로 스크롤을 내려주기
+  useEffect(() => {
+    // 메시지가 업데이트될 때마다 마지막 메시지로 스크롤
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   return (
     <div>
       {messages.map((message, index) => {
@@ -38,6 +49,7 @@ const MessageList = ({ messages, loggedInUser }: MessageListProps) => {
           </div>
         );
       })}
+      <div ref={bottomRef} /> {/* 마지막 메시지를 참조하는 div */}
     </div>
   );
 };

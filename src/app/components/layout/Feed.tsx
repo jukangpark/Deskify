@@ -5,7 +5,7 @@ interface FeedProps {
 }
 
 const Feed: React.FC<FeedProps> = ({ children }) => {
-  return <div className="mt-[24px] flex-grow">{children}</div>;
+  return <div className="flex-grow">{children}</div>;
 };
 
 export default Feed;

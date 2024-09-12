@@ -91,7 +91,7 @@ const ProfilePage = (props: ProfilePageProps) => {
   const isLoggedIn = loggedInUser?.id;
 
   return (
-    <div>
+    <div className="mt-[24px]">
       <div className="display: flex mx-auto max-w-[910px] border-b border-gray-600 pb-[174px]">
         <div className="w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] rounded-full overflow-hidden">
           <Image

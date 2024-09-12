@@ -24,11 +24,11 @@ const MessagesLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="flex h-screen bg-transparent">
-      {/* 좌측 대화 목록 */}
+    <div className="flex sm:h-screen h-screen-minus-50 bg-transparent">
+      {/* 좌측 대화 목록 h-screen-minus-50 은 사용자 정의 커스텀 클래스 자세한 내용은 tailwind.config.ts 참조 */}
       <div className="hidden md:block w-full md:w-1/3 lg:w-1/4 bg-transparent border-r border-gray-300 dark:border-gray-700">
         <div className="p-4 font-bold text-lg dark:text-white">Messages</div>
-        <div className="overflow-y-auto h-full">
+        <div className="overflow-y-auto">
           {/* 대화 목록 */}
           <ChatRoomList chatRoomList={chatRoomList} loggedInUserId={user.id} />
         </div>
