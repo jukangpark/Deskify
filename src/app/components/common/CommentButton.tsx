@@ -1,21 +1,13 @@
-import ICommentWithUsername from "@/app/types/ICommentWithUsername";
-import createComment from "@/utils/supabase/api/createComment";
-import getCommentsByPostId from "@/utils/supabase/api/getCommentsByPostId";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { FaComment } from "react-icons/fa";
 
 interface CommentButtonProps {
   post_id: string;
-  setComments: (comments: ICommentWithUsername[]) => void;
-  loggedInUserId: string | undefined;
+  isDetailPostPage: boolean;
 }
 
-const CommentButton = ({
-  post_id,
-  setComments,
-  loggedInUserId,
-}: CommentButtonProps) => {
+const CommentButton = ({ post_id, isDetailPostPage }: CommentButtonProps) => {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -25,17 +17,14 @@ const CommentButton = ({
       alert("please sign in"); // 다국어 처리하기
       return router.push("/login");
     } else {
-      const comment = prompt("Enter your comment here:");
-
-      if (!comment) {
-        return;
+      if (!isDetailPostPage) {
+        console.log("different post");
+        return router.push(`/post/${post_id}`);
       } else {
-        if (!loggedInUserId) return console.error("Please log in first");
-        await createComment(comment, post_id, "root", loggedInUserId);
-        await getCommentsByPostId(post_id).then((data) => setComments(data));
+        // 같은 포스트를 클릭한 경우 댓글 작성할 수 있도록 처리하기
       }
     }
-  }, [isLoggedIn, router, setComments, post_id, loggedInUserId]);
+  }, [isLoggedIn, router, post_id, isDetailPostPage]);
 
   return (
     <FaComment
