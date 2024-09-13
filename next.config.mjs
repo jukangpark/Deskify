@@ -3,7 +3,11 @@ const nextConfig = {
   // strict mode 해제
   reactStrictMode: false,
   images: {
-    domains: ["k.kakaocdn.net", "aqcpjrrdkmffieyetetc.supabase.co"],
+    domains: [
+      "img1.kakaocdn.net",
+      "k.kakaocdn.net",
+      "aqcpjrrdkmffieyetetc.supabase.co",
+    ],
   },
 
   // headers
