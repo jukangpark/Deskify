@@ -1,11 +1,14 @@
 import { createClient } from "@/utils/supabase/client";
 
-// 채팅방 생성 및 메시지 저장 API
-const createOrSendMessage = async (
+/**
+ * 사용자 ID를 기반으로 채팅방 ID를 가져오거나 새로 생성합니다.
+ * @param {string} user_1_id - 상대방의 ID
+ * @param {string} user_2_id - 현재로그인된 사용자의 ID
+ * @returns {string} - chatRoomId
+ */
+const getOrCreateChatRoomId = async (
     user_1_id: string,
     user_2_id: string,
-    sender_id: string,
-    text: string,
 ) => {
     const supabase = createClient();
 
@@ -15,14 +18,14 @@ const createOrSendMessage = async (
         .select("id")
         .or(`user_1_id.eq.${user_1_id},user_2_id.eq.${user_1_id}`)
         .or(`user_1_id.eq.${user_2_id},user_2_id.eq.${user_2_id}`)
-        .single(); // 한 개의 채팅방만 가져옴
+        .maybeSingle(); // 이 부분을 single()에서 maybeSingle()으로 변경
 
     if (chatroomError) {
         console.error(chatroomError);
         return { error: chatroomError };
     }
 
-    let chatroomId;
+    let chatRoomId;
 
     // 2. 채팅방이 없으면 새로 생성
     if (!chatroom) {
@@ -39,29 +42,12 @@ const createOrSendMessage = async (
             return { error: newChatroomError };
         }
 
-        chatroomId = newChatroom.id;
+        chatRoomId = newChatroom.id;
     } else {
-        chatroomId = chatroom.id;
+        chatRoomId = chatroom.id;
     }
 
-    // 3. 메시지 저장
-    const { data: message, error: messageError } = await supabase
-        .from("messages")
-        .insert([
-            {
-                chatroom_id: chatroomId,
-                sender_id,
-                text,
-                is_read: false,
-            },
-        ]);
-
-    if (messageError) {
-        console.error(messageError);
-        return { error: messageError };
-    }
-
-    return { message };
+    return chatRoomId;
 };
 
-export default createOrSendMessage;
+export default getOrCreateChatRoomId;

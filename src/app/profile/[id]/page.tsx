@@ -14,6 +14,7 @@ import { useRecoilValue } from "recoil";
 import loginUserAtom from "@/atom/loginUserAtom";
 import toggleFollowUser from "@/utils/supabase/api/toggleFollowUser";
 import getIsFollowingByLoggedInUserId from "@/utils/supabase/api/getIsFollowingByLoggedInUserId";
+import getOrCreateChatRoomId from "@/utils/supabase/api/chat/getOrCreateChatRoomId";
 
 interface ProfilePageProps {
   params: {
@@ -128,7 +129,21 @@ const ProfilePage = (props: ProfilePageProps) => {
                   {isFollowing ? "Unfollow" : "Follow"}
                   {/* isLoading 상태 추가하여, 팔로우 데이터를 받아오기전까지, ...loading 으로 표시 */}
                 </button>
-                <button className="block text-[14px] bg-gray-700 hover:bg-gray-500 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out">
+                <button
+                  onClick={async () => {
+                    try {
+                      const chatRoomId = await getOrCreateChatRoomId(
+                        user.id,
+                        loggedInUser.id
+                      );
+                      router.push(`/messages/${chatRoomId}`);
+                    } catch (error) {
+                      console.error(error);
+                      return alert("Error occurred. Please try again.");
+                    }
+                  }}
+                  className="block text-[14px] bg-gray-700 hover:bg-gray-500 text-white font-semibold py-1 px-2 rounded transition duration-300 ease-in-out"
+                >
                   Message
                 </button>
               </>
