@@ -96,7 +96,7 @@ const Presentation = ({
         </div>
       )}
       {isDetailPostPage && loggedInUserId && (
-        <div className="p-2">
+        <div className="pl-2 pt-2 pb-2">
           <CommentInput
             loggedInUserId={loggedInUserId}
             post_id={post_id}

@@ -31,6 +31,7 @@ const CommentInput = ({
           console.error(error);
         }
       }}
+      className="flex items-center space-x-2"
     >
       <input
         onChange={(e) => {
@@ -38,8 +39,17 @@ const CommentInput = ({
         }}
         value={commentText}
         placeholder="Add a Comment..."
-        className="w-full flex-grow border rounded-lg p-1 dark:bg-gray-800 dark:text-white dark:border-gray-600 border-none text-sm"
-      ></input>
+        className="flex-grow border rounded-lg p-1 dark:bg-gray-800 dark:text-white dark:border-gray-600 border-none text-sm"
+      />
+      <button
+        type="submit"
+        className={`bg-gray-600 ${
+          commentText.length > 0 && `hover:bg-blue-700 cursor-pointer`
+        } text-white h-[28px] px-3 rounded-md transition duration-300 text-sm`}
+        disabled={commentText.length === 0}
+      >
+        Post
+      </button>
     </form>
   );
 };

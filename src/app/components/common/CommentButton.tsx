@@ -18,7 +18,6 @@ const CommentButton = ({ post_id, isDetailPostPage }: CommentButtonProps) => {
       return router.push("/login");
     } else {
       if (!isDetailPostPage) {
-        console.log("different post");
         return router.push(`/post/${post_id}`);
       } else {
         // 같은 포스트를 클릭한 경우 댓글 작성할 수 있도록 처리하기
