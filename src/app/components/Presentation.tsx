@@ -121,7 +121,7 @@ const Presentation = ({
             const date = dayjs(updated_at);
             return (
               <div key={comment_id} className="p-1 font-extralight">
-                <Link href={`profile/${user_id}`}>{profiles.username}</Link> :{" "}
+                <Link href={`/profile/${user_id}`}>{profiles.username}</Link> :{" "}
                 <span className="text-gray-400">{content}</span>
                 <div>
                   <span className="text-sm text-gray-400">
