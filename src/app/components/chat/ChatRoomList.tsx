@@ -63,24 +63,22 @@ const ChatRoomList = ({ chatRoomList, loggedInUserId }: ChatRoomListProps) => {
           <Link
             href={`/messages/${chatRoom.id}`}
             key={index}
-            className={`display: block p-2 sm:p-4 border-b border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer
+            className={`display: block p-1 sm:p-4 border-b  border-gray-700 hover:bg-gray-700 cursor-pointer
                 ${
                   isSelectedChatRoom
-                    ? "bg-gray-300 dark:bg-gray-800" // 선택된 채팅방의 스타일
-                    : "hover:bg-gray-200 dark:hover:bg-gray-500"
+                    ? "bg-gray-800" // 선택된 채팅방의 스타일
+                    : "hover:bg-gray-500"
                 }
               `}
           >
             {/* 상대방의 ID 또는 추후 상대방 이름으로 변경 가능 */}
-            <div className="font-bold dark:text-white text-[12px] sm:text-sm">
+            <div className="font-bold text-white text-[12px] sm:text-sm">
               {opponentProfile ? opponentProfile.username : "Loading..."}
             </div>
-            <div className="text-[10px] sm:text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap truncate">
+            <div className="text-[10px] sm:text-sm text-gray-400 whitespace-nowrap truncate">
               {lastMessage}
             </div>
-            <div className="text-[10px] sm:text-sm text-gray-400 dark:text-gray-500">
-              {time}
-            </div>
+            <div className="text-[10px] sm:text-sm text-gray-500">{time}</div>
           </Link>
         );
       })}

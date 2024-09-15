@@ -17,7 +17,7 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="flex-grow border border-gray-300 dark:border-gray-600 p-2 rounded-lg bg-transparent dark:text-white"
+        className="flex-grow border border-gray-600 p-2 rounded-lg bg-transparent text-white"
         placeholder="Search..."
       />
     </form>
@@ -26,7 +26,7 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
 
 const SearchResults = ({ results }: { results: string[] }) => {
   if (results.length === 0) {
-    return <div className="text-gray-500 dark:text-gray-400" />;
+    return <div className="text-gray-400" />;
   }
 
   return (
@@ -34,7 +34,7 @@ const SearchResults = ({ results }: { results: string[] }) => {
       {results.map((result, index) => (
         <li
           key={index}
-          className="p-4 border-b border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+          className="p-4 border-b border-gray-700 hover:bg-gray-700 cursor-pointer"
         >
           {result}
         </li>

@@ -65,18 +65,14 @@ const MessagesPage = () => {
 
   return (
     <div className="w-full md:w-2/3 lg:w-3/4 flex flex-col">
-      <div className="flex items-center justify-between p-4 border-b border-gray-300 dark:border-gray-700">
-        <div className="font-bold text-xs sm:text-lg dark:text-white">
-          Username
-        </div>
-        <div className="text-xs sm:text-lg text-gray-500 dark:text-gray-400">
-          Active now
-        </div>
+      <div className="flex items-center justify-between p-4 border-b border-gray-700">
+        <div className="font-bold text-xs sm:text-lg text-white">Username</div>
+        <div className="text-xs sm:text-lg text-gray-400">Active now</div>
       </div>
       <div className="flex-grow overflow-y-auto p-4">
         <MessageList messages={messages} loggedInUser={loggedInUser} />
       </div>
-      <div className="p-2 sm:p-3 border-t border-gray-300 dark:border-gray-700">
+      <div className="p-2 sm:p-3 border-t border-gray-700">
         <MessageInput loggedInUser={loggedInUser} />
       </div>
     </div>

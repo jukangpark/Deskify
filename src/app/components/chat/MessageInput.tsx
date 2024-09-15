@@ -31,7 +31,7 @@ const MessageInput = ({ loggedInUser }: MessageInputProps) => {
             setMessageText(e.target.value);
           }} // 입력 값 업데이트
           type="text"
-          className="text-[10px] sm:text-[12px] w-full flex-grow border rounded-lg p-1 sm:p-2 dark:bg-gray-800 dark:text-white dark:border-gray-600"
+          className="text-[10px] sm:text-[12px] w-full flex-grow border rounded-lg p-1 sm:p-2 bg-gray-800 text-white border-gray-600"
           placeholder="Type a message..."
         />
       </form>

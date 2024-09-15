@@ -39,7 +39,7 @@ const CommentInput = ({
         }}
         value={commentText}
         placeholder="Add a Comment..."
-        className="flex-grow border rounded-lg p-1 dark:bg-gray-800 dark:text-white dark:border-gray-600 border-none text-sm"
+        className="flex-grow border rounded-lg p-1 bg-gray-800 text-white border-gray-600 border-none text-sm"
       />
       <button
         type="submit"
