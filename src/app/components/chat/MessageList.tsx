@@ -35,14 +35,14 @@ const MessageList = ({ messages, loggedInUser }: MessageListProps) => {
             className={`flex ${isMyMessage ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`p-2 my-2 rounded-lg ${
+              className={`p-1 sm:p-2 my-2 text-[12px] sm:text-lg rounded-lg ${
                 isMyMessage
                   ? "bg-blue-500 text-white"
                   : "bg-gray-200 dark:bg-gray-700 dark:text-white"
               } max-w-xs`}
             >
               {message.text}
-              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <div className="text-[9px] sm:text-xs text-gray-500 dark:text-gray-400 mt-1">
                 {date.fromNow()}
               </div>
             </div>
