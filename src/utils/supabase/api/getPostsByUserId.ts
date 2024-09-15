@@ -16,7 +16,8 @@ const getPostsByUserId = async (userId: string): Promise<IPost[]> => {
         const { data, error } = await supabase
             .from("posts")
             .select("*")
-            .eq("user_id", userId);
+            .eq("user_id", userId)
+            .order("created_at", { ascending: false }); // 최신순 정렬
 
         if (error) {
             console.error("Error fetching posts:", error.message);
