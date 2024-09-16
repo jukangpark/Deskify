@@ -1,6 +1,7 @@
 import getCommentsByPostId from "@/utils/supabase/api/getCommentsByPostId";
 import createComment from "@/utils/supabase/api/createComment";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 interface CommentInputProps {
   loggedInUserId: string | undefined;
@@ -17,11 +18,19 @@ const CommentInput = ({
   setComments,
 }: CommentInputProps) => {
   const [commentText, setCommentText] = useState("");
+  const router = useRouter();
+
+  const handleFocus =  useCallback(async () => {
+    if (!loggedInUserId) {
+      return router.push("/login");
+    }
+  }, [loggedInUserId]);
 
   return (
     <form
       onSubmit={async (e) => {
-        e.preventDefault();
+        e.preventDefault();     
+
         try {
           await createComment(commentText, post_id, "root", loggedInUserId);
           const commentData = await getCommentsByPostId(post_id);
@@ -37,6 +46,7 @@ const CommentInput = ({
         onChange={(e) => {
           setCommentText(e.target.value);
         }}
+        onFocus={handleFocus}
         value={commentText}
         placeholder="Add a Comment..."
         className="flex-grow border rounded-lg p-1 bg-gray-800 text-white border-gray-600 border-none text-sm"

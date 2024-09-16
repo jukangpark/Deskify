@@ -42,7 +42,7 @@ const Post = ({
 
   return (
     <div
-      className={`w-[350px] sm:w-[479px] h-[813px] mb-[20px] ${
+      className={`w-[350px] sm:w-[479px] h-[853px] mb-[20px] ${
         !isDetailPostPage && "border-b"
       }  border-gray-600 pt-0 pr-0 pb-[16px] pl-0`}
     >

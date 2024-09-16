@@ -32,6 +32,9 @@ const Presentation = ({
 }) => {
   const [commentCount, setCommentCount] = useState<number>(0);
   const [comments, setComments] = useState<ICommentWithUsername[]>([]);
+  const commentToIndex = 1;
+  const commentFromIndex = 0;
+  const maxCommentSize = commentToIndex - commentFromIndex + 1;
 
   useEffect(() => {
     (async () => {
@@ -40,7 +43,7 @@ const Presentation = ({
         if (isDetailPostPage) {
           setComments(commentData);
         } else {
-          setComments(commentData.slice(0, 1)); // 현재는 이렇게 데이터 모두 불러와서 잘랐지만,나중에는 페이징 처리해야함.
+          setComments(commentData.slice(commentFromIndex, commentToIndex)); // 현재는 이렇게 데이터 모두 불러와서 잘랐지만,나중에는 페이징 처리해야함.
         }
       } catch (error) {
         console.error(error);
@@ -88,22 +91,20 @@ const Presentation = ({
         </Link>
         <span className="font-extralight">{content}</span>
       </div>
-      {!isDetailPostPage && (
+      {!isDetailPostPage && commentCount > maxCommentSize && (
         <div className="pl-3">
           <Link href={`/post/${post_id}`} className="text-xs text-gray-400">
             View all {commentCount} comments
           </Link>
         </div>
       )}
-      {isDetailPostPage && loggedInUserId && (
-        <div className="pl-2 pt-2 pb-2">
-          <CommentInput
-            loggedInUserId={loggedInUserId}
-            post_id={post_id}
-            setComments={setComments}
-          />
-        </div>
-      )}
+      <div className="pl-2 pt-2 pb-2">
+        <CommentInput
+          loggedInUserId={loggedInUserId}
+          post_id={post_id}
+          setComments={setComments}
+        />
+      </div>
       <div
         className={`pl-2 overflow-y-auto ${
           !isDetailPostPage ? "max-h-20" : "h-auto"
