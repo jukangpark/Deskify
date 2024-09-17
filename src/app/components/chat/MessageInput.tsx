@@ -1,6 +1,7 @@
 import createMessage from "@/utils/supabase/api/chat/createMessage";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
+import { IoIosSend } from "react-icons/io";
 
 interface MessageInputProps {
   loggedInUser: any; // 임시로 any 로 설정
@@ -19,7 +20,7 @@ const MessageInput = ({ loggedInUser }: MessageInputProps) => {
   return (
     <div className="flex w-full">
       <form
-        className="block w-full"
+        className="flex w-full"
         onSubmit={(e) => {
           e.preventDefault(); // 폼제출 막기
           handleCreateMessage();
@@ -31,9 +32,12 @@ const MessageInput = ({ loggedInUser }: MessageInputProps) => {
             setMessageText(e.target.value);
           }} // 입력 값 업데이트
           type="text"
-          className="text-[10px] sm:text-[12px] w-full flex-grow border rounded-lg p-1 sm:p-2 bg-gray-800 text-white border-gray-600"
+          className="block text-[10px] sm:text-[12px] w-full flex-grow border rounded-lg p-1 sm:p-2 bg-gray-800 text-white border-gray-600"
           placeholder="Type a message..."
         />
+        <button type="submit" className="block ml-[10px]">
+          <IoIosSend size={22} />
+        </button>
       </form>
     </div>
   );
