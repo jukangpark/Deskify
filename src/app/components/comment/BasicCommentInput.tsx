@@ -1,23 +1,18 @@
-import getCommentsByPostId from "@/utils/supabase/api/getCommentsByPostId";
-import createComment from "@/utils/supabase/api/createComment";
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
-// TODO BasicCommentInput에 비동기 로직을 분리하여서 이 부분이 approve되면 CommentInput 삭제 예정
-interface CommentInputProps {
+interface BasicCommentInputProps {
   loggedInUserId: string | undefined;
-  post_id: string;
-  setComments: any; // TODO: 타입 정의
+  createComment: (commentText: string) => Promise<void>
 }
 
 /**
     root 에 댓글 작성하는 컴포넌트
  */
-const CommentInput = ({
-  post_id,
+const BasicCommentInput = ({
   loggedInUserId,
-  setComments,
-}: CommentInputProps) => {
+  createComment
+}: BasicCommentInputProps) => {
   const [commentText, setCommentText] = useState("");
   const router = useRouter();
 
@@ -32,14 +27,8 @@ const CommentInput = ({
       onSubmit={async (e) => {
         e.preventDefault();     
 
-        try {
-          await createComment(commentText, post_id, "root", loggedInUserId);
-          const commentData = await getCommentsByPostId(post_id);
-          setCommentText("");
-          setComments(commentData);
-        } catch (error) {
-          console.error(error);
-        }
+        await createComment(commentText);
+        setCommentText("");
       }}
       className="flex items-center space-x-2"
     >
@@ -65,4 +54,4 @@ const CommentInput = ({
   );
 };
 
-export default CommentInput;
+export default BasicCommentInput;

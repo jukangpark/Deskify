@@ -8,8 +8,9 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import ICommentWithUsername from "@/app/types/ICommentWithUsername";
 import ShareButton from "./common/ShareButton";
-import CommentInput from "./comment/CommentInput";
+import BasicCommentInput from './comment/BasicCommentInput'
 import getCommentCountByPostId from "@/utils/supabase/api/getCommentCountByPostId";
+import createComment from "@/utils/supabase/api/createComment";
 
 dayjs.extend(relativeTime);
 
@@ -32,20 +33,25 @@ const Presentation = ({
 }) => {
   const [commentCount, setCommentCount] = useState<number>(0);
   const [comments, setComments] = useState<ICommentWithUsername[]>([]);
+  const commentToIndex = 1;
+  const commentFromIndex = 0;
+  const maxCommentSize = commentToIndex - commentFromIndex + 1;
+
+  const refecthComments = async () => {
+    try {
+      const commentData = await getCommentsByPostId(post_id);
+      if (isDetailPostPage) {
+        setComments(commentData);
+      } else {
+        setComments(commentData.slice(commentFromIndex, commentToIndex)); // 현재는 이렇게 데이터 모두 불러와서 잘랐지만,나중에는 페이징 처리해야함.
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   useEffect(() => {
-    (async () => {
-      try {
-        const commentData = await getCommentsByPostId(post_id);
-        if (isDetailPostPage) {
-          setComments(commentData);
-        } else {
-          setComments(commentData.slice(0, 1)); // 현재는 이렇게 데이터 모두 불러와서 잘랐지만,나중에는 페이징 처리해야함.
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+    refecthComments();
   }, [post_id, isDetailPostPage]);
 
   useEffect(() => {
@@ -58,6 +64,16 @@ const Presentation = ({
       }
     })();
   }, []);
+
+  const createCommentAndRefetchComment = async (commentText: string) => {
+    try {
+      await createComment(commentText, post_id, "root", loggedInUserId);
+    } catch (error) {
+      console.error(error);
+    }
+
+    refecthComments();
+  }
 
   return (
     <div className="w-[100%] h-[585px] sm:w-[468px] border border-gray-600">
@@ -88,22 +104,19 @@ const Presentation = ({
         </Link>
         <span className="font-extralight">{content}</span>
       </div>
-      {!isDetailPostPage && (
+      {!isDetailPostPage && commentCount > maxCommentSize && (
         <div className="pl-3">
           <Link href={`/post/${post_id}`} className="text-xs text-gray-400">
             View all {commentCount} comments
           </Link>
         </div>
       )}
-      {isDetailPostPage && loggedInUserId && (
-        <div className="pl-2 pt-2 pb-2">
-          <CommentInput
-            loggedInUserId={loggedInUserId}
-            post_id={post_id}
-            setComments={setComments}
-          />
-        </div>
-      )}
+      <div className="pl-2 pt-2 pb-2">
+       <BasicCommentInput
+          loggedInUserId={loggedInUserId}
+          createComment={createCommentAndRefetchComment}
+        />
+      </div>
       <div
         className={`pl-2 overflow-y-auto ${
           !isDetailPostPage ? "max-h-20" : "h-auto"
