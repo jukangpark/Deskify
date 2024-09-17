@@ -24,3 +24,9 @@ Deskify is a social networking platform where people showcase and share their pe
 ### MVP Development
 
 This repository is focused on quickly developing a Minimum Viable Product (MVP) for Deskify. The goal is to create a functional version of the platform with core features that allow users to share and explore desk setups. We aim to iterate rapidly based on user feedback and continuously improve the platform.
+
+### Contributors
+
+<a href="https://github.com/jukangpark/Deskify/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=jukangpark/Deskify" alt="contributors"/>
+</a>
