@@ -46,9 +46,7 @@ const LargeScreenNavigation = ({ user, pathname }: any) => {
             <span className="hidden md:block">Profile</span>
           </Link>
         </li>
-        {
-          user &&  <LogOutButton user={user} />
-        }
+        {user && <LogOutButton user={user} />}
       </div>
       <Footer />
     </ul>

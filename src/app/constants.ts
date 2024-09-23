@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { IoMdCreate } from "react-icons/io";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { AiFillNotification } from "react-icons/ai";
+import { IoLogOut } from "react-icons/io5";
 
 import { IconType } from "react-icons"; // Import IconType
 
@@ -21,3 +22,9 @@ export const navigationArray: NavigationItem[] = [
   { icon: AiFillNotification, label: "Notifications", link: "/notifications" },
   { icon: IoMdCreate, label: "Create", link: "/create" },
 ];
+
+export const logoutObj = {
+  icon: IoLogOut,
+  label: "Log Out",
+  link: "/logout",
+};

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { navigationArray } from "@/app/constants";
 import NavigationProfile from "@/app/components/NavigationProfile";
+import LogOutButton from "../LogOutButton";
 
 // 공통된 스타일을 정의한 함수
 const getNavItemClasses = (isActive: boolean) =>
@@ -40,6 +41,7 @@ const SmallScreenNavigation = ({ user, pathname }: any) => {
             <NavigationProfile avatarUrl={user?.user_metadata.avatar_url} />
           </Link>
         </li>
+        {user && <LogOutButton user={user} />}
       </div>
     </ul>
   );

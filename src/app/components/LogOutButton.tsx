@@ -1,14 +1,18 @@
 "use client";
 
 import logOut from "@/utils/supabase/auth/logOut";
+import { logoutObj } from "../constants";
 
 const LogOutButton = ({ user }: any) => {
   return (
     <li
       onClick={logOut}
-      className="w-[311px] h-[48px] m-[4px_0] p-[12px] text-[16px] font-bold cursor-pointer text-gray-400 hover:font-bold transition-colors duration-300 hidden md:block"
+      className="w-[250px] h-[48px] p-[12px] text-[16px] cursor-pointer text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2"
     >
-      {"Log Out"}
+      <div>
+        <logoutObj.icon size={24} />
+      </div>
+      <div className="hidden md:block">{logoutObj.label}</div>
     </li>
   );
 };

@@ -11,11 +11,11 @@ const NavigationProfile = ({ avatarUrl }: { avatarUrl: string }) => {
             className="rounded-full"
             src={avatarUrl}
             alt="avatar"
-            width={20}
-            height={20}
+            width={24}
+            height={24}
           />
         ) : (
-          <div className="w-[22px] h-[22px] bg-gray-600 rounded-full" />
+          <div className="w-[24px] h-[24px] bg-gray-600 rounded-full" />
         )}
       </div>
     </div>
