@@ -44,17 +44,7 @@ const NotificationPage = () => {
       </div>
 
       {/* 우측 상세보기 창 (선택 시 내용 표시 영역, 현재는 비워둠) */}
-      <div className="w-full md:w-2/3 lg:w-3/4 flex flex-col">
-        <div className="flex items-center justify-between p-4 border-b border-gray-700 bg-transparent">
-          <div className="font-bold text-lg text-white">Details</div>
-        </div>
-        <div className="flex-grow overflow-y-auto p-4 bg-transparent">
-          {/* 알림 선택 후의 세부 내용 */}
-          <div className="text-gray-400">
-            Select a notification to view details
-          </div>
-        </div>
-      </div>
+      <div className="w-full md:w-2/3 lg:w-3/4 flex flex-col"></div>
     </div>
   );
 };
