@@ -17,18 +17,23 @@ const CommentInput = ({
   setComments,
 }: CommentInputProps) => {
   const [commentText, setCommentText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <form
       onSubmit={async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // 먼저 기본 제출 동작 방지
+        if (isLoading) return;
         try {
+          setIsLoading(true);
           await createComment(commentText, post_id, "root", loggedInUserId);
           const commentData = await getCommentsByPostId(post_id);
           setCommentText("");
           setComments(commentData);
         } catch (error) {
           console.error(error);
+        } finally {
+          setIsLoading(false);
         }
       }}
       className="flex items-center space-x-2"
@@ -46,7 +51,7 @@ const CommentInput = ({
         className={`bg-gray-600 ${
           commentText.length > 0 && `hover:bg-blue-700 cursor-pointer`
         } text-white h-[28px] px-3 rounded-md transition duration-300 text-sm`}
-        disabled={commentText.length === 0}
+        disabled={commentText.length === 0 || isLoading}
       >
         Post
       </button>
