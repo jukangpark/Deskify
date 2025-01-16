@@ -7,16 +7,33 @@ import IPost from "@/app/types/IPost";
 
 const Posts = () => {
   const [posts, setPost] = useState<IPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     (async () => {
-      const posts = await getPosts();
+      try {
+        setIsLoading(true);
+        const posts = await getPosts();
 
-      if (posts) {
-        setPost(posts);
+        if (posts) {
+          setPost(posts);
+        }
+      } catch (error) {
+        setErrorMessage("Failed to load posts");
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
+
+  if (errorMessage) {
+    return <div className="flex justify-center">{errorMessage}</div>;
+  }
+
+  if (isLoading) {
+    return <div className="flex justify-center">Loading...</div>;
+  }
 
   return (
     <div className="flex justify-center">
