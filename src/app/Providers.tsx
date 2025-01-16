@@ -1,6 +1,9 @@
 "use client";
 
 import { RecoilRoot } from "recoil";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useState } from "react";
 
 // import { ThemeProvider } from "next-themes";
 
@@ -9,14 +12,25 @@ interface ProvidersProps {
 }
 
 const Providers = ({ children }: ProvidersProps) => {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000, // 1분
+            retry: 1,
+            refetchOnWindowFocus: false, // 창 포커스시 자동 리페치 비활성화
+          },
+        },
+      })
+  );
   return (
-    <RecoilRoot>
-      <div>
-        {/* [To Do] : Add Theme */}
-        {/* <ThemeProvider>{children}</ThemeProvider> */}
-        {children}
-      </div>
-    </RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <div>{children}</div>
+      </RecoilRoot>
+      <ReactQueryDevtools initialIsOpen={false} /> {/* 개발 도구 */}
+    </QueryClientProvider>
   );
 };
 

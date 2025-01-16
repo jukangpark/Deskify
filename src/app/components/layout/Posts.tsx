@@ -1,44 +1,41 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Post from "../Post";
 import getPosts from "@/utils/supabase/api/getPosts";
 import IPost from "@/app/types/IPost";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 const Posts = () => {
-  const [posts, setPost] = useState<IPost[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const {
+    data: posts,
+    isPending,
+    error,
+    refetch, // 필요한 경우 수동으로 재요청할 수 있음
+  } = useSuspenseQuery<IPost[]>({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+    retry: 1,
+    refetchOnWindowFocus: false,
+  });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        setIsLoading(true);
-        const posts = await getPosts();
-
-        if (posts) {
-          setPost(posts);
-        }
-      } catch (error) {
-        setErrorMessage("Failed to load posts");
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, []);
-
-  if (errorMessage) {
-    return <div className="flex justify-center">{errorMessage}</div>;
-  }
-
-  if (isLoading) {
-    return <div className="flex justify-center">Loading...</div>;
+  if (error) {
+    return (
+      <div className="flex flex-col items-center gap-4">
+        <div className="flex justify-center">Failed to load posts</div>
+        <button
+          onClick={() => refetch()}
+          className="text-blue-500 hover:underline"
+        >
+          Try again
+        </button>
+      </div>
+    );
   }
 
   return (
     <div className="flex justify-center">
       <div>
-        {posts.map((postData) => {
+        {posts?.map((postData) => {
           const { id, content, image, user_id, created_at, updated_at } =
             postData;
 

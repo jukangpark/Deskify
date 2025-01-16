@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import LikeButton from "./common/LikeButton";
 import CommentButton from "./common/CommentButton";
