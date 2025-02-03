@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname === "/login") {
         // 이미 로그인된 상태라면 홈페이지로 리다이렉트
         if (user) {
-            return Response.redirect(new URL("/", request.url));
+            return NextResponse.redirect(new URL("/", request.url));
         }
     }
 
